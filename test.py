@@ -61,9 +61,9 @@ addSpriteImage(rocket, "rocket4.gif")
 addSpriteImage(rocket, "rocket5.gif")
 addSpriteImage(rocket, "rocket6.gif")
 showSprite(rocket)
-moveSprite(rocket, 480, 300)
-x = 0  # angle of ship
-y = 0  # angle of rocket
+moveSprite(rocket, 480, 319,True)
+x = 90  # angle of ship
+y = 90  # angle of rocket
 running = True
 
 while running:
@@ -75,12 +75,16 @@ while running:
     elif keyPressed("left"):  # rotation left
         rotateSprite(Ship, x)
         rotateSprite(rocket, y)
-        y -= 0.33161255787892263
+        y -= 1
+        w=math.tan(Rad(y))
+        print(w)
         x -= 1
     elif keyPressed("right"):  # rotation right
         rotateSprite(Ship, x)
         rotateSprite(rocket, y)
-        y += 0.33161255787892263
+        y += 1
+        z=math.tan(Rad(y))
+        print(z)
         x += 1
     if (410 < meteorX < 542) and (257 < meteorY < 381):
         print("Game Over")
