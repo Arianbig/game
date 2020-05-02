@@ -1,0 +1,4 @@
+import math
+a=(1/360)*2*math.pi*19
+print(a)
+
