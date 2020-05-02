@@ -7,7 +7,7 @@ from math import radians as Rad
 # def fire(x,y)
 
 
-setAutoUpdate(True)
+setAutoUpdate(False)
 
 # create Screen
 Pushed = 1
@@ -64,11 +64,16 @@ showSprite(rocket)
 moveSprite(rocket, 480, 319,True)
 x = 90  # angle of ship
 y = 90  # angle of rocket
+z = 90
 running = True
+launch = False
+rocketX = 0
+rocketY = 0
 
 while running:
-    # for event in pygame.event.get():
-    #  if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+            launch = True
 
     if keyPressed("esc"):
         running = False
@@ -76,23 +81,41 @@ while running:
         rotateSprite(Ship, x)
         rotateSprite(rocket, y)
         y -= 1
-        w=math.tan(Rad(y))
-        print(w)
         x -= 1
+        z += 1
     elif keyPressed("right"):  # rotation right
         rotateSprite(Ship, x)
         rotateSprite(rocket, y)
         y += 1
-        z=math.tan(Rad(y))
-        print(z)
         x += 1
+        z -= 1
     if (410 < meteorX < 542) and (257 < meteorY < 381):
         print("Game Over")
     if meteoralive:
         moveSprite(meteor, meteorX, meteorY, True)
         meteorX = meteorX + math.cos(Rad(meteorangle - 90))
         meteorY = meteorY + math.sin(Rad(meteorangle - 90))
-        pause(1)
+    if launch:
+        if math.tan(Rad(z)) > 0:
+            rocketX += 1
+        else:
+            rocketX -= 1
+
+        # if z == 90:
+        #     rocketX = 480
+        #     rocketY -= 1
+        # elif z == 270:
+        #     rocketX = 480
+        #     rocketY += 1
+        # else:
+        rocketY = math.tan(Rad(z)) * rocketX
+        foo = 480 + rocketX
+        bar = 319 - rocketY
+        print(foo, bar, math.tan(Rad(z)), z, x, y)
+        moveSprite(rocket, foo, bar, True)
+        pause(50)
+        # rocketrX = rocketrX + math.cos(Rad(meteorangle - 90))
+        # rocketrY = rocketrY + math.sin(Rad(meteorangle - 90))
     fps = tick(60)
+    updateDisplay()
     changeLabel(FPS, "FPS: {0}".format(str(round(fps, 2))))
-updateDisplay()
