@@ -1,4 +1,15 @@
 import math
-a=(1/360)*2*math.pi*19
-print(a)
 
+x1=0
+y1=0
+for R in range(45,405,45):
+    print(R)
+    x2 = x1 + (2.5 * math.sin(math.radians(R)))
+    print("x2 =",x2)
+    y2 = y1 - (2.5 * (1 - math.cos(math.radians(R))))
+    print("y2 =",y2+2.5)
+for R in range(45, 405, 45):
+    x2 = x2 + (2.5 * math.sin(math.radians(R)))
+    print("x2 =",x2)
+    y2 = y1 - (2.5 * (1 - math.cos(math.radians(R))))
+    print("y2 =",y2+2.5)
