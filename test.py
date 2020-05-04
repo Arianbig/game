@@ -5,7 +5,9 @@ import pygame
 from math import radians as Rad
 
 # def fire(x,y)
-
+makeMusic("backgroundmusic.ogg")
+playMusic()
+LAUNCH=makeSound("launch.ogg")
 
 setAutoUpdate(False)
 
@@ -76,6 +78,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
             launch = True
+            playSound(LAUNCH)
     if keyPressed("esc"):
         running = False
     elif keyPressed("left") and launch == False:  # rotation left with rocket
@@ -121,6 +124,9 @@ while running:
         pause(6)
     if (410 < meteorX < 542) and (257 < meteorY < 381):
         print("Game Over")
+        killSprite(meteor)
+        killSprite(Ship)
+        showSprite(explosion)
     if (rocketrX - 50 < meteorX < rocketrX + 50) and (rocketrY - 50 < meteorY < rocketrY + 50):
         killSprite(meteor)
         killSprite(rocket)
@@ -129,7 +135,6 @@ while running:
         moveSprite(rocket, 480, 319, True)
         rocketrX = 480
         rocketrY = 319
-        killSprite(rocket)
         y = z + y
         z = 0
         print(y)
